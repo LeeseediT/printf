@@ -1,6 +1,11 @@
 #include "main.h"
 #include <stdarg.h>
-
+/**
+ * _printf - emulates the builtin printf() function
+ *@format: specifier within the passed string
+ *@...: variadic arguments
+ *Return: return number of values printed
+ */
 int _printf(const char *format, ...)
 {
 	va_list args;
