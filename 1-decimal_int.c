@@ -4,14 +4,14 @@
 
 /**
  * print_hexa - Prints a value of its format
-  * @types: List of arguments to be printed.
- * @buffer: Buffer array to handle print.
- * @flags: Calculates active flags
+  * @types: argument, which is used to access the variable argument list.
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
  * @map_to: array of strings
- * @width: get width.
+ * @width: represents the minimum field width for the output character..
  * @flag_ch: flag character to be used
- * @precision: Precision specification
- * @size: Size specifier
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ * @size:  represents the maximum size of the buffer that is passed as an argument.
  * Return: number of values printed;
  */
 
@@ -50,13 +50,13 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 
 /**
  * write_unsigned - get an un signed int passed using the specifier
- * @buffer: array of texts in the buffer
- * @flags: Calculates active flags
- * @width: get width.
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
  * @is_negative: checks if the in it a negative int
  * @ind: buffer index of value
  * @size: size of the integer
- * @precision: Precision specification
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
  * Return: number of values printed;
  */
 
@@ -108,7 +108,7 @@ int write_unsigned(int is_negative, int ind,
 /**
  * write_pointer - Prints a value of its format
  * @ind: Index at which the number starts on the buffer
- * @buffer: Buffer
+ * @buffer: represents a buffer where the formatted output will be stored.
  * @flags: Flags
  * @width: width
  * @padd_start: character padding start
@@ -168,12 +168,12 @@ int write_pointer(char buffer[], int ind, int length,
 
 /**
  * _int - Prints a value of its format
- * @buffer: Buffer array to handle print.
+ * @buffer: represents a buffer where the formatted output will be stored.
  * @types: variadic list
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ * @size:  represents the maximum size of the buffer that is passed as an argument.
  * Return: number of values printed;
  */
 

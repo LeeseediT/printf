@@ -5,7 +5,9 @@
  * @format: gets the specifier passed
  * @i: List of arguments to be printed.
 
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int _specifiers(const char *format, int *i)
@@ -40,7 +42,9 @@ int _specifiers(const char *format, int *i)
 /**
  * is_digit - checks if a value is a digit
  * @c: character to check
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int is_digit(char c)
@@ -56,7 +60,9 @@ int is_digit(char c)
  * @format: gets the specifier passed
  * @i: List of arguments to be printed.
  *@list: variadic list
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int _precision(const char *format, int *i, va_list list)

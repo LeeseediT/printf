@@ -4,12 +4,14 @@
  * write_integer - Prints a value  based on its format
  * @is_negative: to check if an int is negative
  * @ind: buffer index
- * @buffer: array of texts in the buffer
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
  * @size: integer size
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 int write_integer(int is_negative, int ind, char buffer[],
 				 int flags, int width, int precision, int size)
@@ -38,12 +40,14 @@ int write_integer(int is_negative, int ind, char buffer[],
 /**
  * handle_write_char - Prints a value of its format
  * @c: character to be handles
- * @buffer: array of texts in the buffer
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
  * @size: integer size
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 int handle_write_char(char c, char buffer[], int flags, int width,
 					  int precision, int size)
@@ -81,7 +85,7 @@ int handle_write_char(char c, char buffer[], int flags, int width,
 
 /**
  * write_int - Prints a value of its format
- * @buffer: chars in the buffer array
+ * @buffer: represents a buffer where the formatted output will be stored.
  * @ind: character index in the buffer
  * @flags: specifier passed
  * @width: width
@@ -89,7 +93,9 @@ int handle_write_char(char c, char buffer[], int flags, int width,
  * @length: Number length
  * @padd: Padding character
  * @extra_c: Extra char
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int write_int(int ind, char buffer[], int flags, int width, int precision,

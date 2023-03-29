@@ -6,7 +6,9 @@
  * _size - gets special  values
  * @format: gets the specifier passed
  * @i: List of arguments to be printed.
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 int _size(const char *format, int *i)
 {
@@ -30,7 +32,9 @@ int _size(const char *format, int *i)
  * @format: gets the specifier passed
  * @i: List of arguments to be printed.
  * @list: variadic list
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 int _width(const char *format, int *i, va_list list)
 {
@@ -64,7 +68,9 @@ int _width(const char *format, int *i, va_list list)
  * int_size - adjusts the size of an integer
  * @num: the int to be adjusted
  * @size: size int to be checked.
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 long int int_size(long int num, int size)
@@ -82,7 +88,9 @@ long int int_size(long int num, int size)
  * unsigned_int_size - Prints a value of its format
  * @num: the int to be adjusted
  * @size: size int to be checked.
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 long int unsigned_int_size(unsigned long int num, int size)
 {

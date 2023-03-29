@@ -54,11 +54,13 @@ int _printf(const char *format, ...)
  * @list: List of arguments to be checked.
  * @ind: index of search.
  * @buffer: Buffer array to handle printing.
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
- * Return: 1 or 2;
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ * @size:  represents the maximum size of the buffer that is passed as an argument.
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 int func_print(const char *fmt, int *ind, va_list list, char buffer[],
 			   int flags, int width, int precision, int size)

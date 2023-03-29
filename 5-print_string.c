@@ -5,12 +5,14 @@
 /**
  * _unprintable - Prints a value of its format
  * @types: List of arguments to be printed..
- * @buffer: Buffer array to handle print.
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
- * Return: 1 or 2;
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ * @size:  represents the maximum size of the buffer that is passed as an argument.
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int _unprintable(va_list types, char buffer[],
@@ -60,9 +62,11 @@ int is_printable(char c)
 /**
  * append_hexa - Prints a value of its format
  * @ascii_code: Formatted string in which to print the arguments.
- * @buffer: List of arguments in the memory to be printed.
+ * @buffer: represents a buffer where the formatted output will be stored.
  * @ind: buffer index
- * Return: 1 or 2;
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 int append_hexa(char ascii_code, char buffer[], int ind)
 {

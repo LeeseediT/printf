@@ -3,13 +3,15 @@
 
 /**
  * _octal - Prints a value of its format
- * @types: List of arguments to be printed.
- * @buffer: Buffer array to handle print.
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
- * Return: 1 or 2;
+ * @types: argument, which is used to access the variable argument list.
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ * @size:  represents the maximum size of the buffer that is passed as an argument.
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int _octal(va_list types, char buffer[],
@@ -47,13 +49,15 @@ int _octal(va_list types, char buffer[],
 
 /**
  * _unsigned - Prints a value of its format
- * @types: List of arguments to be printed.
- * @buffer: Buffer array to handle print.
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
- * Return: 1 or 2;
+ * @types: argument, which is used to access the variable argument list.
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ * @size:  represents the maximum size of the buffer that is passed as an argument.
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int _unsigned(va_list types, char buffer[],
@@ -84,13 +88,15 @@ int _unsigned(va_list types, char buffer[],
 
 /**
  * _hexa - Prints a value of its format
- * @types: List of arguments to be printed.
- * @buffer: Buffer array to handle print.
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
- * Return: 1 or 2;
+ * @types: argument, which is used to access the variable argument list.
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ * @size:  represents the maximum size of the buffer that is passed as an argument.
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int _hexa(va_list types, char buffer[],
@@ -103,13 +109,15 @@ int _hexa(va_list types, char buffer[],
 
 /**
  * hexa_upper - Prints a value of its format
- * @types: List of arguments to be printed.
- * @buffer: Buffer array to handle print.
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
- * Return: 1 or 2;
+ * @types: argument, which is used to access the variable argument list.
+ * @buffer: represents a buffer where the formatted output will be stored.
+ * @flags: represents any optional formatting flags that are used in the printf-style function call.
+ * @width: represents the minimum field width for the output character..
+ * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ * @size:  represents the maximum size of the buffer that is passed as an argument.
+ * Return: returns an integer value representing the number of characters written to the output buffer.
+
+
  */
 
 int hexa_upper(va_list types, char buffer[],
