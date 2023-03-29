@@ -1,0 +1,88 @@
+#include "main.h"
+/**
+ * is_printable - function checks whether 
+ *                  the given character is printable or not, 
+ *                  using the ASCII table
+ * @c: character to be checked.
+ *
+ * Return: 1 if the character is printable, 0 otherwise
+ */
+int is_printable(char c)
+{
+	if (c >= 32 && c < 127)
+		return (1);
+
+	return (0);
+}
+
+/**
+ * append_hexa - appends the hexadecimal code for a given ASCII character
+ *                      to a character buffer
+ * @buffer: Array of chars.
+ * @i: Index at which to start appending.
+ * @ascii_code: ascii code of the character to be converted.
+ * Return: Always 3
+ */
+int append_hexa(char ascii_code, char buffer[], int i)
+{
+	char map_to[] = "0123456789ABCDEF";
+
+	if (ascii_code < 0)
+		ascii_code *= -1;
+
+	buffer[i++] = '\\';
+	buffer[i++] = 'x';
+
+	buffer[i++] = map_to[ascii_code / 16];
+	buffer[i] = map_to[ascii_code % 16];
+
+	return (3);
+}
+
+/**
+ * is_digit - checks for a digit value
+ * @c: value to check
+ *
+ * Return: 1 if it is a digit, 0 otherwise
+ */
+int is_digit(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+
+	return (0);
+}
+
+/**
+ * convert_size_number - converts an int to the long int size
+ * @num: int to be converted.
+ * @size: convert type indicator
+ *
+ * Return: return the value converted
+ */
+long int convert_size_number(long int num, int size)
+{
+	if (size == SIZE_LONG)
+		return (num);
+	else if (size == SIZE_SHORT)
+		return ((short)num);
+
+	return ((int)num);
+}
+
+/**
+ * convert_size_number - converts an int to the long int size
+ * @num: int to be converted.
+ * @size: convert type indicator
+ *
+ * Return: return the value converted
+ */
+long int convert_size_unsgnd(unsigned long int num, int size)
+{
+	if (size == SIZE_LONG)
+		return (num);
+	else if (size == SIZE_SHORT)
+		return ((unsigned short)num);
+
+	return ((unsigned int)num);
+}

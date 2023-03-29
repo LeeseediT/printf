@@ -1,47 +1,5 @@
 #include "main.h"
 
-int _specifier(const char *fmt, int *index, va_list list, char buffer[],
-				 int flags, int width, int precision, int size)
-{
-	int i, unknow_len = 0, printed_chars = -1;
-	fmt_type fmt_typeypes[] = {
-		{'c', _char}, {'s', _string}, {'%', _percent}, {'\0', NULL}};
-	for (i = 0; fmt_typeypes[i].fmt != '\0'; i++)
-		if (fmt[*index] == fmt_typeypes[i].fmt)
-			return (fmt_typeypes[i].fn(list, buffer, flags, width, precision, size));
-
-	if (fmt_typeypes[i].fmt == '\0')
-	{
-		if (fmt[*index] == '\0')
-			return (-1);
-		unknow_len += write(1, "%%", 1);
-		if (fmt[*index - 1] == ' ')
-			unknow_len += write(1, " ", 1);
-		else if (width)
-		{
-			--(*index);
-			while (fmt[*index] != ' ' && fmt[*index] != '%')
-				--(*index);
-			if (fmt[*index] == ' ')
-				--(*index);
-			return (1);
-		}
-		unknow_len += write(1, &fmt[*index], 1);
-		return (unknow_len);
-	}
-	return (printed_chars);
-}
-
-/**
- * _char - function that handles the %c specifier
- * @types: the data type of the value
- * @buffer: a buffer array
- * @flags: the flags in the string
- * @width: handles the with specified in the string
- * @precision: handles string precision
- * @size: handles the size specified in the string
- * Return: returns the number of printed values
- */
 int _char(va_list types, char buffer[],
 		  int flags, int width, int precision, int size)
 {
@@ -49,16 +7,7 @@ int _char(va_list types, char buffer[],
 
 	return (handle_write_char(c, buffer, flags, width, precision, size));
 }
-/**
- * _string - function that handles the %c specifier
- * @types: the data type of the value
- * @buffer: a buffer array
- * @flags: the flags in the string
- * @width: handles the with specified in the string
- * @precision: handles string precision
- * @size: handles the size specified in the string
- * Return: returns the number of printed values
- */
+
 int _string(va_list types, char buffer[],
 			int flags, int width, int precision, int size)
 {
@@ -103,17 +52,8 @@ int _string(va_list types, char buffer[],
 
 	return (write(1, str, length));
 }
-/**
- * _modulus - function that handles the %c specifier
- * @types: the data type of the value
- * @buffer: a buffer array
- * @flags: the flags in the string
- * @width: handles the with specified in the string
- * @precision: handles string precision
- * @size: handles the size specified in the string
- * Return: returns the number of printed values
- */
-int _modulus(va_list types, char buffer[],
+
+int _percent(va_list types, char buffer[],
 			 int flags, int width, int precision, int size)
 {
 	(void)types;
@@ -123,4 +63,319 @@ int _modulus(va_list types, char buffer[],
 	(void)precision;
 	(void)size;
 	return (write(1, "%%", 1));
+}
+
+int _int(va_list types, char buffer[],
+		 int flags, int width, int precision, int size)
+{
+	int i = BUFF_SIZE - 2;
+	int is_negative = 0;
+	long int n = va_arg(types, long int);
+	unsigned long int num;
+
+	n = convert_size_number(n, size);
+
+	if (n == 0)
+		buffer[i--] = '0';
+
+	buffer[BUFF_SIZE - 1] = '\0';
+	num = (unsigned long int)n;
+
+	if (n < 0)
+	{
+		num = (unsigned long int)((-1) * n);
+		is_negative = 1;
+	}
+
+	while (num > 0)
+	{
+		buffer[i--] = (num % 10) + '0';
+		num /= 10;
+	}
+
+	i++;
+
+	return (write_number(is_negative, i, buffer, flags, width, precision, size));
+}
+
+int _binary(va_list types, char buffer[],
+			int flags, int width, int precision, int size)
+{
+	unsigned int n, m, i, sum;
+	unsigned int a[32];
+	int count;
+
+	(void)buffer;
+	(void)flags;
+	(void)width;
+	(void)precision;
+	(void)size;
+
+	n = va_arg(types, unsigned int);
+	m = 2147483648; /* (2 ^ 31) */
+	a[0] = n / m;
+	for (i = 1; i < 32; i++)
+	{
+		m /= 2;
+		a[i] = (n / m) % 2;
+	}
+	for (i = 0, sum = 0, count = 0; i < 32; i++)
+	{
+		sum += a[i];
+		if (sum || i == 31)
+		{
+			char z = '0' + a[i];
+
+			write(1, &z, 1);
+			count++;
+		}
+	}
+	return (count);
+}
+
+#include "main.h"
+
+int _unsigned(va_list types, char buffer[],
+			  int flags, int width, int precision, int size)
+{
+	int i = BUFF_SIZE - 2;
+	unsigned long int num = va_arg(types, unsigned long int);
+
+	num = convert_size_unsgnd(num, size);
+
+	if (num == 0)
+		buffer[i--] = '0';
+
+	buffer[BUFF_SIZE - 1] = '\0';
+
+	while (num > 0)
+	{
+		buffer[i--] = (num % 10) + '0';
+		num /= 10;
+	}
+
+	i++;
+
+	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
+}
+
+int _octal(va_list types, char buffer[],
+		   int flags, int width, int precision, int size)
+{
+
+	int i = BUFF_SIZE - 2;
+	unsigned long int num = va_arg(types, unsigned long int);
+	unsigned long int init_num = num;
+
+	(void)width;
+
+	num = convert_size_unsgnd(num, size);
+
+	if (num == 0)
+		buffer[i--] = '0';
+
+	buffer[BUFF_SIZE - 1] = '\0';
+
+	while (num > 0)
+	{
+		buffer[i--] = (num % 8) + '0';
+		num /= 8;
+	}
+
+	if (flags & HASH_FLAG && init_num != 0)
+		buffer[i--] = '0';
+
+	i++;
+
+	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
+}
+
+int _hexa(va_list types, char buffer[],
+		  int flags, int width, int precision, int size)
+{
+	return (print_hexa(types, "0123456789abcdef", buffer,
+					   flags, 'x', width, precision, size));
+}
+
+int hexa_upper(va_list types, char buffer[],
+			   int flags, int width, int precision, int size)
+{
+	return (print_hexa(types, "0123456789ABCDEF", buffer,
+					   flags, 'X', width, precision, size));
+}
+
+int print_hexa(va_list types, char map_to[], char buffer[],
+			   int flags, char flag_ch, int width, int precision, int size)
+{
+	int i = BUFF_SIZE - 2;
+	unsigned long int num = va_arg(types, unsigned long int);
+	unsigned long int init_num = num;
+
+	(void)width;
+
+	num = convert_size_unsgnd(num, size);
+
+	if (num == 0)
+		buffer[i--] = '0';
+
+	buffer[BUFF_SIZE - 1] = '\0';
+
+	while (num > 0)
+	{
+		buffer[i--] = map_to[num % 16];
+		num /= 16;
+	}
+
+	if (flags & HASH_FLAG && init_num != 0)
+	{
+		buffer[i--] = flag_ch;
+		buffer[i--] = '0';
+	}
+
+	i++;
+
+	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
+}
+
+int _pointer(va_list types, char buffer[],
+			 int flags, int width, int precision, int size)
+{
+	char extra_c = 0, padd = ' ';
+	int ind = BUFF_SIZE - 2, length = 2, padd_start = 1; /* length=2, for '0x' */
+	unsigned long num_addrs;
+	char map_to[] = "0123456789abcdef";
+	void *addrs = va_arg(types, void *);
+
+	(void)width;
+	(void)size;
+
+	if (addrs == NULL)
+		return (write(1, "(nil)", 5));
+
+	buffer[BUFF_SIZE - 1] = '\0';
+	(void)precision;
+
+	num_addrs = (unsigned long)addrs;
+
+	while (num_addrs > 0)
+	{
+		buffer[ind--] = map_to[num_addrs % 16];
+		num_addrs /= 16;
+		length++;
+	}
+
+	if ((flags & ZERO_FLAG) && !(flags & MINUS_FLAG))
+		padd = '0';
+	if (flags & PLUS_FLAG)
+		extra_c = '+', length++;
+	else if (flags & SPACE_FLAG)
+		extra_c = ' ', length++;
+
+	ind++;
+
+	return (write(1, &buffer[i], BUFF_SIZE - i - 1));
+	return (write_pointer(buffer, ind, length,
+						  width, flags, padd, extra_c, padd_start));
+}
+
+int print_non_printable(va_list types, char buffer[],
+						int flags, int width, int precision, int size)
+{
+	int i = 0, offset = 0;
+	char *str = va_arg(types, char *);
+
+	(void)flags;
+	(void)width;
+	(void)precision;
+	(void)size;
+
+	if (str == NULL)
+		return (write(1, "(null)", 6));
+
+	while (str[i] != '\0')
+	{
+		if (is_printable(str[i]))
+			buffer[i + offset] = str[i];
+		else
+			offset += append_hexa_code(str[i], buffer, i + offset);
+
+		i++;
+	}
+
+	buffer[i + offset] = '\0';
+
+	return (write(1, buffer, i + offset));
+}
+
+int _reverse(va_list types, char buffer[],
+			 int flags, int width, int precision, int size)
+{
+	char *str;
+	int i, count = 0;
+
+	(void)buffer;
+	(void)flags;
+	(void)width;
+	(void)size;
+
+	str = va_arg(types, char *);
+
+	if (str == NULL)
+	{
+		(void)precision;
+
+		str = ")Null(";
+	}
+	for (i = 0; str[i]; i++)
+		;
+
+	for (i = i - 1; i >= 0; i--)
+	{
+		char z = str[i];
+
+		write(1, &z, 1);
+		count++;
+	}
+	return (count);
+}
+
+int _rot13(va_list types, char buffer[],
+		   int flags, int width, int precision, int size)
+{
+	char x;
+	char *str;
+	unsigned int i, j;
+	int count = 0;
+	char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+
+	str = va_arg(types, char *);
+	(void)buffer;
+	(void)flags;
+	(void)width;
+	(void)precision;
+	(void)size;
+
+	if (str == NULL)
+		str = "(AHYY)";
+	for (i = 0; str[i]; i++)
+	{
+		for (j = 0; in[j]; j++)
+		{
+			if (in[j] == str[i])
+			{
+				x = out[j];
+				write(1, &x, 1);
+				count++;
+				break;
+			}
+		}
+		if (!in[j])
+		{
+			x = str[i];
+			write(1, &x, 1);
+			count++;
+		}
+	}
+	return (count);
 }
