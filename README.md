@@ -45,7 +45,7 @@ Here is an example of how to use this program:
 arduino
 Copy code
 ```C
-#include "main.h"
+`#include "main.h"
 
 int main(void)
 {
@@ -56,7 +56,7 @@ int main(void)
     _printf("String: %s, Integer: %d, Address: %p\n", str, num, ptr);
 
     return (0);
-}```
+}`
 This will output:
 
 yaml
