@@ -98,7 +98,6 @@ int write_int(int ind, char buffer[],
 
 	if (prec == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0' && width == 0)
 		return (0);
-
 	if (prec == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
 		buffer[ind] = padd = ' ';
 
@@ -114,21 +113,18 @@ int write_int(int ind, char buffer[],
 			buffer[i] = padd;
 		buffer[i] = '\0';
 		if (flags & MINUS_FLAG && padd == ' ')
-
 		{
 			if (extra_c)
 				buffer[--ind] = extra_c;
 			return (write(1, &buffer[ind], length) + write(1, &buffer[1], i - 1));
 		}
 		else if (!(flags & MINUS_FLAG) && padd == ' ')
-
 		{
 			if (extra_c)
 				buffer[--ind] = extra_c;
 			return (write(1, &buffer[1], i - 1) + write(1, &buffer[ind], length));
 		}
 		else if (!(flags & MINUS_FLAG) && padd == '0')
-
 		{
 			if (extra_c)
 				buffer[--padd_start] = extra_c;
