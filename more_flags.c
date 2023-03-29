@@ -1,8 +1,7 @@
 #include "main.h"
 /**
  * _unsigned - Prints a value of its format
- * @fmt: Formatted string in which to print the arguments.
- * @type: List of arguments to be printed.
+ * @types: List of arguments to be printed.
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.
@@ -37,9 +36,7 @@ int _unsigned(va_list types, char buffer[],
 
 /**
  * _octal - Prints a value of its format
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
+  * @types: List of arguments to be printed.
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.
@@ -51,7 +48,6 @@ int _unsigned(va_list types, char buffer[],
 int _octal(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-
 	int i = BUFFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
@@ -81,9 +77,7 @@ int _octal(va_list types, char buffer[],
 
 /**
  * _hexa - Prints a value of its format
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
+  * @types: List of arguments to be printed.
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.
@@ -101,9 +95,7 @@ int _hexa(va_list types, char buffer[],
 
 /**
  * hexa_upper - Prints a value of its format
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
+  * @types: List of arguments to be printed.
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.
@@ -121,12 +113,12 @@ int hexa_upper(va_list types, char buffer[],
 
 /**
  * print_hexa - Prints a value of its format
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
+  * @types: List of arguments to be printed.
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
+ * @map_to: array of strings
  * @width: get width.
+ * @flag_ch: flag character to be used
  * @precision: Precision specification
  * @size: Size specifier
  * Return: 1 or 2;
