@@ -1,58 +1,60 @@
 #include "main.h"
 
+
+
 /**
- * write_integer - Prints a value  based on its format
- * @is_negative: to check if an int is negative
- * @ind: buffer index
- * @buffer: represents a buffer where the formatted output will be stored.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size: integer size
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *_specifiers - gets special  values
+ *@format: a pointer to a character array representing
+ *			the format string being parsed.
+ *@i: a pointer to an integer value representing the current
+ *			position in the format string being parsed.
+ *@list: a variable argument list containing the arguments to be formatted.
+ *Return: returns calculated width
  */
-int write_integer(int is_negative, int ind, char buffer[],
-				 int flags, int width, int precision, int size)
+
+int _specifiers(const char *format, int *i)
 {
-	int length = BUFFER_SIZE - ind - 1;
-	char padd = ' ', extra_ch = 0;
 
-	(void)size;
+	int j, curr_i;
+	int flags = 0;
+	const char FLAGS_CH[] = {'-', '+', '0', '#', ' ', '\0'};
+	const int FLAGS_ARR[] = {MINUS_FLAG, PLUS_FLAG, ZERO_FLAG,
+							HASH_FLAG, SPACE_FLAG, 0};
 
-	if ((flags & ZERO_FLAG) && !(flags & MINUS_FLAG))
-		padd = '0';
-	if (is_negative)
-		extra_ch = '-';
-	else if (flags & PLUS_FLAG)
-		extra_ch = '+';
-	else if (flags & SPACE_FLAG)
-		extra_ch = ' ';
-
-	return (write_int(ind, buffer, flags, width, precision,
-					  length, padd, extra_ch));
+	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
+	{
+		for (j = 0; FLAGS_CH[j] != '\0'; j++)
+			if (format[curr_i] == FLAGS_CH[j])
+			{
+				flags |= FLAGS_ARR[j];
+				break;
+			}
+		if (FLAGS_CH[j] == 0)
+			break;
+	}
+	*i = curr_i - 1;
+	return (flags);
 }
 
 
 
-
 /**
- * handle_write_char - Prints a value of its format
- * @c: character to be handles
- * @buffer: represents a buffer where the formatted output will be stored.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size: integer size
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *handle_write_char - Prints a value of its format
+ *@c: character to be handles
+ *@buffer: represents a buffer where the formatted
+ *		output will be stored.
+ *@flags: represents any optional formatting flags that
+ *		are used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after the
+ *		flag characters for non-custom conversion specifier values.
+ *@size: integer size
+ *Return: returns an integer value representing the number of
+ *		characters written to the output buffer.
  */
 int handle_write_char(char c, char buffer[], int flags, int width,
 					  int precision, int size)
 {
-
 	int i = 0;
 	char padd = ' ';
 
@@ -78,24 +80,27 @@ int handle_write_char(char c, char buffer[], int flags, int width,
 			return (write(1, &buffer[BUFFER_SIZE - i - 1], width - 1) +
 					write(1, &buffer[0], 1));
 	}
-
 	return (write(1, &buffer[0], 1));
 }
 
 
 /**
- * write_int - Prints a value of its format
- * @buffer: represents a buffer where the formatted output will be stored.
- * @ind: character index in the buffer
- * @flags: specifier passed
- * @width: width
- * @precision: search method
- * @length: Number length
- * @padd: Padding character
- * @extra_c: Extra char
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *write_int - Prints a value of its format
+ *@buffer: represents a buffer where the formatted output will be stored.
+ *@ind: represents the current index into the output
+ *			buffer where the next character should be written.
+ *@flags: represents any optional formatting flags that are used
+ *			in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after the flag
+ *			characters for non-custom conversion specifier values.
+ *@length:  represents the maximum size of the buffer that is
+ *			passed as an argument.
+ *@padd: is used to specify the padding character to use when filling
+ *			the output string to the specified width.
+ *@extra_c: Extra char
+ *Return: returns an integer value representing the number of
+ *			characters written to the output buffer.
  */
 
 int write_int(int ind, char buffer[], int flags, int width, int precision,

@@ -1,14 +1,11 @@
 #include "main.h"
-
-
-
 /**
- * _size - gets special  values
- * @format: gets the specifier passed
- * @i: List of arguments to be printed.
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *_size - gets special  values
+ *@format: a pointer to a character array
+ *			representing the format string being parsed.
+ *@i:  a pointer to an integer value representing the
+ *		current position in the format string being parsed.
+ *Return: returns the calculated size.
  */
 int _size(const char *format, int *i)
 {
@@ -28,13 +25,13 @@ int _size(const char *format, int *i)
 	return (size);
 }
 /**
- * _width - gets special  values
- * @format: gets the specifier passed
- * @i: List of arguments to be printed.
- * @list: variadic list
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *_width - gets special  values
+ *@format: a pointer to a character array representing
+ *			the format string being parsed.
+ *@i: a pointer to an integer value representing the current
+ *			position in the format string being parsed.
+ *@list: a variable argument list containing the arguments to be formatted.
+ *Return: returns calculated width
  */
 int _width(const char *format, int *i, va_list list)
 {
@@ -63,14 +60,14 @@ int _width(const char *format, int *i, va_list list)
 	return (width);
 }
 
-
 /**
- * int_size - adjusts the size of an integer
- * @num: the int to be adjusted
- * @size: size int to be checked.
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *int_size - adjusts the size of an integer
+ *@num: an integer value that is being
+ *			converted to a different data type based on
+ *			the size parameter.
+ *@size: specifies the desired data type size to which
+ *			the num parameter should be converted.
+ *Return: returns the converted integer
  */
 
 long int int_size(long int num, int size)
@@ -83,14 +80,15 @@ long int int_size(long int num, int size)
 	return ((int)num);
 }
 
-
 /**
- * unsigned_int_size - Prints a value of its format
- * @num: the int to be adjusted
- * @size: size int to be checked.
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *unsigned_int_size - Prints a value of its format
+ *@num: an unsigned integer value that is being
+ *			converted to a different data type based on
+ *			the size parameter.
+ *@size: specifies the desired data type size to
+ *			which the num parameter should be converted.
+ *Return: returns an integer value representing the
+ *			number of characters written to the output buffer.
  */
 long int unsigned_int_size(unsigned long int num, int size)
 {
@@ -102,3 +100,62 @@ long int unsigned_int_size(unsigned long int num, int size)
 	return ((unsigned int)num);
 }
 
+/**
+ *write_unsigned - get an un signed int passed using the specifier
+ *@buffer: represents a buffer where the formatted output will be stored.
+ *@flags: represents any optional formatting flags
+ *			that are used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@is_negative: checks if the in it a negative int
+ *@ind: buffer index of value
+ *@size: size of the integer
+ *@precision: used to specify the number of digits after the flag
+ *				characters for non-custom conversion specifier values.
+ *Return: returns an integer value representing
+ *				the number of characters written to the output buffer.
+ */
+
+int write_unsigned(int is_negative, int ind,
+				   char buffer[],
+				   int flags, int width, int precision, int size)
+{
+	int length = BUFFER_SIZE - ind - 1, i = 0;
+	char padd = ' ';
+
+	(void)is_negative;
+	(void)size;
+
+	if (precision == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
+		return (0);
+
+	if (precision > 0 && precision < length)
+		padd = ' ';
+
+	while (precision > length)
+	{
+		buffer[--ind] = '0';
+		length++;
+	}
+
+	if ((flags & ZERO_FLAG) && !(flags & MINUS_FLAG))
+		padd = '0';
+
+	if (width > length)
+	{
+		for (i = 0; i < width - length; i++)
+			buffer[i] = padd;
+
+		buffer[i] = '\0';
+
+		if (flags & MINUS_FLAG)
+		{
+			return (write(1, &buffer[ind], length) + write(1, &buffer[0], i));
+		}
+		else
+		{
+			return (write(1, &buffer[0], i) + write(1, &buffer[ind], length));
+		}
+	}
+
+	return (write(1, &buffer[ind], length));
+}

@@ -3,16 +3,19 @@
 
 
 /**
- * _unprintable - Prints a value of its format
- * @types: List of arguments to be printed..
- * @buffer: represents a buffer where the formatted output will be stored.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size:  represents the maximum size of the buffer that is passed as an argument.
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *_unprintable - Prints a value of its format
+ *@types: List of arguments to be printed..
+ *@buffer: represents a buffer where the formatted
+ *			output will be stored.
+ *@flags: represents any optional formatting flags that are
+ *			used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after
+ *			the flag characters for non-custom conversion specifier values.
+ *@size:  represents the maximum size of the buffer
+ *			that is passed as an argument.
+ *Return: returns an integer value representing the number of
+ *			characters written to the output buffer.
  */
 
 int _unprintable(va_list types, char buffer[],
@@ -46,9 +49,10 @@ int _unprintable(va_list types, char buffer[],
 
 
 /**
- * is_printable - checks if a value is printable
- * @c: character to be checked
- * Return: 1 if true and 0 otherwise;
+ *is_printable - checks if a value is printable
+ *@c:  represents a single character that is being
+ *		tested for printability.
+ *Return: 1 if true and 0 otherwise;
  */
 
 int is_printable(char c)
@@ -60,13 +64,13 @@ int is_printable(char c)
 }
 
 /**
- * append_hexa - Prints a value of its format
- * @ascii_code: Formatted string in which to print the arguments.
- * @buffer: represents a buffer where the formatted output will be stored.
- * @ind: buffer index
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *append_hexa - Prints a value of its format
+ *@ascii_code: Formatted string in which to print the arguments.
+ *@buffer: represents a buffer where the formatted output will be stored.
+ *@ind: represents the current index into the output
+ *			buffer where the next character should be written.
+ *Return: returns an integer value representing
+ *			the number of characters written to the output buffer.
  */
 int append_hexa(char ascii_code, char buffer[], int ind)
 {

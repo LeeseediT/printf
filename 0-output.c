@@ -1,24 +1,22 @@
 #include "main.h"
 
-
 /**
- * _char - Prints a value of its format
- * @buffer: represents a buffer where the formatted output will be stored.
- * @types: argument, which is used to access the variable argument list.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size:  represents the maximum size of the buffer that is passed as an argument.
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *_char - Prints a value of its format
+ *@buffer: represents a buffer where the formatted output will be stored.
+ *@types: argument, which is used to access the variable argument list.
+ *@flags: represents any optional formatting
+ *		flags that are used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after
+ *			the flag characters for non-custom conversion specifier values.
+ *@size:  represents the maximum size of the
+ *			buffer that is passed as an argument.
+ *Return: returns an integer value representing
+ *				the number of characters written to the output buffer.
  */
 
-
-
-
 int _char(va_list types, char buffer[],
-	int flags, int width, int precision, int size)
+		  int flags, int width, int precision, int size)
 {
 	char c = va_arg(types, int);
 
@@ -26,20 +24,22 @@ int _char(va_list types, char buffer[],
 }
 
 /**
- * _string - Prints a value of its format
- * @buffer: represents a buffer where the formatted output will be stored.
- * @types: argument, which is used to access the variable argument list.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size:  represents the maximum size of the buffer that is passed as an argument.
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *_string - Prints a value of its format
+ *@buffer: represents a buffer where the formatted output will be stored.
+ *@types: argument, which is used to access the variable argument list.
+ *@flags: represents any optional formatting
+ *		flags that are used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after
+ *			the flag characters for non-custom conversion specifier values.
+ *@size:  represents the maximum size of the
+ *			buffer that is passed as an argument.
+ *Return: returns an integer value representing
+ *				the number of characters written to the output buffer.
  */
 
 int _string(va_list types, char buffer[],
-	int flags, int width, int precision, int size)
+			int flags, int width, int precision, int size)
 {
 	int length = 0, i;
 	char *str = va_arg(types, char *);
@@ -84,20 +84,22 @@ int _string(va_list types, char buffer[],
 }
 
 /**
- * _percent - Prints a value of its format
- * @buffer: represents a buffer where the formatted output will be stored.
- * @types: argument, which is used to access the variable argument list.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size:  represents the maximum size of the buffer that is passed as an argument.
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *_percent - Prints a value of its format
+ *@buffer: represents a buffer where the formatted output will be stored.
+ *@types: argument, which is used to access the variable argument list.
+ *@flags: represents any optional formatting
+ *		flags that are used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after
+ *			the flag characters for non-custom conversion specifier values.
+ *@size:  represents the maximum size of the
+ *			buffer that is passed as an argument.
+ *Return: returns an integer value representing
+ *				the number of characters written to the output buffer.
  */
 
 int _percent(va_list types, char buffer[],
-	int flags, int width, int precision, int size)
+			 int flags, int width, int precision, int size)
 {
 	(void)types;
 	(void)buffer;
@@ -107,4 +109,3 @@ int _percent(va_list types, char buffer[],
 	(void)size;
 	return (write(1, "%%", 1));
 }
-

@@ -3,120 +3,22 @@
 
 
 /**
- * print_hexa - Prints a value of its format
-  * @types: argument, which is used to access the variable argument list.
- * @buffer: represents a buffer where the formatted output will be stored.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @map_to: array of strings
- * @width: represents the minimum field width for the output character..
- * @flag_ch: flag character to be used
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size:  represents the maximum size of the buffer that is passed as an argument.
- * Return: number of values printed;
- */
-
-int print_hexa(va_list types, char map_to[], char buffer[],
-	int flags, char flag_ch, int width, int precision, int size)
-{
-	int i = BUFFER_SIZE - 2;
-	unsigned long int num = va_arg(types, unsigned long int);
-	unsigned long int init_num = num;
-
-	(void)width;
-
-	num = unsigned_int_size(num, size);
-
-	if (num == 0)
-		buffer[i--] = '0';
-
-	buffer[BUFFER_SIZE - 1] = '\0';
-
-	while (num > 0)
-	{
-		buffer[i--] = map_to[num % 16];
-		num /= 16;
-	}
-
-	if (flags & HASH_FLAG && init_num != 0)
-	{
-		buffer[i--] = flag_ch;
-		buffer[i--] = '0';
-	}
-
-	i++;
-	return (write_unsigned(0, i, buffer, flags, width, precision, size));
-}
-
-
-/**
- * write_unsigned - get an un signed int passed using the specifier
- * @buffer: represents a buffer where the formatted output will be stored.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @is_negative: checks if the in it a negative int
- * @ind: buffer index of value
- * @size: size of the integer
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * Return: number of values printed;
- */
-
-int write_unsigned(int is_negative, int ind,
-				 char buffer[],
-				 int flags, int width, int precision, int size)
-{
-	int length = BUFFER_SIZE - ind - 1, i = 0;
-	char padd = ' ';
-
-	(void)is_negative;
-	(void)size;
-
-	if (precision == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
-		return (0);
-
-	if (precision > 0 && precision < length)
-		padd = ' ';
-
-	while (precision > length)
-	{
-		buffer[--ind] = '0';
-		length++;
-	}
-
-	if ((flags & ZERO_FLAG) && !(flags & MINUS_FLAG))
-		padd = '0';
-
-	if (width > length)
-	{
-		for (i = 0; i < width - length; i++)
-			buffer[i] = padd;
-
-		buffer[i] = '\0';
-
-		if (flags & MINUS_FLAG)
-		{
-			return (write(1, &buffer[ind], length) + write(1, &buffer[0], i));
-		}
-		else
-		{
-			return (write(1, &buffer[0], i) + write(1, &buffer[ind], length));
-		}
-	}
-
-	return (write(1, &buffer[ind], length));
-}
-
-/**
- * write_pointer - Prints a value of its format
- * @ind: Index at which the number starts on the buffer
- * @buffer: represents a buffer where the formatted output will be stored.
- * @flags: Flags
- * @width: width
- * @padd_start: character padding start
- * @length: Number length
- * @padd: Padding character
- * @extra_c: Extra char
+ *write_pointer - Prints a value of its format
+ *@ind: represents the current index into the output buffer
+ *			where the next character should be written.
+ *@buffer: represents a buffer where the formatted output will be stored.
+ *@flags: represents any optional formatting flags
+ *			that are used in the printf-style function call.
+ *@width: width
+ *@padd_start: is used to control where padding characters
+ *				are inserted in the output string.
+ *@length: Number length
+ *@padd: is used to specify the padding character
+ *			to use when filling the output string to the specified width.
+ *@extra_c: Extra char
  *
- * Return: number of values printed;
+ *Return: returns an integer value representing
+ *				the number of characters written to the output buffer.
  */
 
 int write_pointer(char buffer[], int ind, int length,
@@ -167,14 +69,18 @@ int write_pointer(char buffer[], int ind, int length,
 
 
 /**
- * _int - Prints a value of its format
- * @buffer: represents a buffer where the formatted output will be stored.
- * @types: variadic list
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size:  represents the maximum size of the buffer that is passed as an argument.
- * Return: number of values printed;
+ *_int - Prints a value of its format
+ *@buffer: represents a buffer where the formatted output will be stored.
+ *@types: variadic list
+ *@flags: represents any optional formatting flags
+ *			that are used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after the flag
+ *				characters for non-custom conversion specifier values.
+ *@size:  represents the maximum size of the buffer that is passed
+ *		as an argument.
+ *Return: returns an integer value representing
+ *				the number of characters written to the output buffer.
  */
 
 int _int(va_list types, char buffer[],
@@ -208,4 +114,42 @@ int _int(va_list types, char buffer[],
 	i++;
 
 	return (write_integer(is_negative, i, buffer, flags, width, precision, size));
+}
+
+
+/**
+ *write_integer - Prints a value  based on its format
+ *@is_negative: to check if an int is negative
+ *@ind: buffer index
+ *@buffer: represents a buffer where the formatted output
+ *		will be stored.
+ *@flags: represents any optional formatting flags that
+ *		are used in the printf-style function call.
+ *@width: represents the minimum field width for the output
+ *		character..
+ *@precision: used to specify the number of digits after
+ *		the flag characters for non-custom conversion specifier values.
+ *@size: integer size
+ *Return: returns an integer value representing the number of
+ *		characters written to the output buffer.
+ */
+int write_integer(int is_negative, int ind, char buffer[],
+				 int flags, int width, int precision, int size)
+{
+	int length = BUFFER_SIZE - ind - 1;
+	char padd = ' ', extra_ch = 0;
+
+	(void)size;
+
+	if ((flags & ZERO_FLAG) && !(flags & MINUS_FLAG))
+		padd = '0';
+	if (is_negative)
+		extra_ch = '-';
+	else if (flags & PLUS_FLAG)
+		extra_ch = '+';
+	else if (flags & SPACE_FLAG)
+		extra_ch = ' ';
+
+	return (write_int(ind, buffer, flags, width, precision,
+					  length, padd, extra_ch));
 }

@@ -15,10 +15,10 @@
 #define SIZE_LONG 2
 #define SIZE_SHORT 1
 /**
- * fmt - a struct data type
- * @fmt_t: variable from fmt struct.
- * 
- * 
+ *fmt - a struct data type
+ *@fmt_t: variable from fmt struct.
+ *
+ *
  */
 typedef struct fmt
 {

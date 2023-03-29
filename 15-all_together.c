@@ -1,50 +1,11 @@
 #include "main.h"
 
-/**
- * _specifiers - gets special  values
- * @format: gets the specifier passed
- * @i: List of arguments to be printed.
-
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
- */
-
-int _specifiers(const char *format, int *i)
-{
-
-	int j, curr_i;
-	int flags = 0;
-	const char FLAGS_CH[] = {'-', '+', '0', '#', ' ', '\0'};
-	const int FLAGS_ARR[] = {MINUS_FLAG, PLUS_FLAG, ZERO_FLAG,
-							HASH_FLAG, SPACE_FLAG, 0};
-
-	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
-	{
-		for (j = 0; FLAGS_CH[j] != '\0'; j++)
-			if (format[curr_i] == FLAGS_CH[j])
-			{
-				flags |= FLAGS_ARR[j];
-				break;
-			}
-
-		if (FLAGS_CH[j] == 0)
-			break;
-	}
-
-	*i = curr_i - 1;
-
-	return (flags);
-}
-
-
 
 /**
- * is_digit - checks if a value is a digit
- * @c: character to check
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *is_digit - checks if a value is a digit
+ *@c: character to check
+ *Return: returns an integer value representing the
+ *			number of characters written to the output buffer.
  */
 
 int is_digit(char c)
@@ -56,13 +17,12 @@ int is_digit(char c)
 }
 
 /**
- * _precision - gets special  values
- * @format: gets the specifier passed
- * @i: List of arguments to be printed.
+ *_precision - gets special  values
+ *@format: gets the specifier passed
+ *@i: List of arguments to be printed.
  *@list: variadic list
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *Return: returns an integer value representing the number
+ *			of characters written to the output buffer.
  */
 
 int _precision(const char *format, int *i, va_list list)

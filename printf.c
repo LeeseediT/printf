@@ -1,10 +1,10 @@
 #include "main.h"
 /**
- * _printf -emulates the printf() built in function
- * @format: passed identifier
+ *_printf -emulates the printf() built in function
+ *@format: passed identifier
  *
- * @...: variadic argument
- * Return: returns the number of printed values
+ *@...: variadic argument
+ *Return: returns the number of printed values
  */
 int _printf(const char *format, ...)
 {
@@ -49,18 +49,16 @@ int _printf(const char *format, ...)
 }
 
 /**
- * func_print - gets the function to each specifier required input  formatting
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be checked.
- * @ind: index of search.
- * @buffer: Buffer array to handle printing.
- * @flags: represents any optional formatting flags that are used in the printf-style function call.
- * @width: represents the minimum field width for the output character..
- * @precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
- * @size:  represents the maximum size of the buffer that is passed as an argument.
- * Return: returns an integer value representing the number of characters written to the output buffer.
-
-
+ *func_print - gets the function to each specifier required input  formatting
+ *@fmt: Formatted string in which to print the arguments.
+ *@list: List of arguments to be checked.
+ *@ind: index of search.
+ *@buffer: Buffer array to handle printing.
+ *@flags: represents any optional formatting flags that are used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after the flag characters for non-custom conversion specifier values.
+ *@size:  represents the maximum size of the buffer that is passed as an argument.
+ *Return: returns an integer value representing the number of characters written to the output buffer.
  */
 int func_print(const char *fmt, int *ind, va_list list, char buffer[],
 			   int flags, int width, int precision, int size)
