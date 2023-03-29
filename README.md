@@ -56,7 +56,7 @@ int main(void)
     _printf("String: %s, Integer: %d, Address: %p\n", str, num, ptr);
 
     return (0);
-}
+}```
 This will output:
 
 yaml
