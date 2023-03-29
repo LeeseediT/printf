@@ -2,19 +2,19 @@
 /**
  * _printf -emulates the printf() built in function
  * @format: passed identifier
- * 
+ *
  * @...: variadic argument
+ * Return: returns the number of printed values
  */
 int _printf(const char *format, ...)
 {
-	int i = 0, printed = 0, printed_chars = 0;
+	int i = 0, printed = 0, num_printed = 0;
 	int flags, width, precision, size, buff_ind = 0;
 	va_list list;
 	char buffer[BUFFER_SIZE];
 
 	if (format == NULL)
 		return (-1);
-
 	va_start(list, format);
 
 	while (format[i])
@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 			if (buff_ind == BUFFER_SIZE)
 				print_buffer(buffer, &buff_ind);
 
-			printed_chars++;
+			num_printed++;
 		}
 		else
 		{
@@ -39,37 +39,21 @@ int _printf(const char *format, ...)
 								 flags, width, precision, size);
 			if (printed == -1)
 				return (-1);
-			printed_chars += printed;
+			num_printed += printed;
 		}
 		i++;
 	}
-
 	print_buffer(buffer, &buff_ind);
-
 	va_end(list);
-
-	return (printed_chars);
+	return (num_printed);
 }
 
 /**
- * print_buffer - prints out the values stored in the buffer
- * @buffer: Array of chars values
- * @buff_ind: Index at which to add next char, represents the length.
- */
-void print_buffer(char buffer[], int *buff_ind)
-{
-	if (*buff_ind > 0)
-		write(1, &buffer[0], *buff_ind);
-
-	*buff_ind = 0;
-}
-
-/**
- * func_print - Prints a value based on the specifier passed
+ * func_print - gets the function to each specifier required input  formatting
  * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
- * @buffer: Buffer array to handle print.
+ * @list: List of arguments to be checked.
+ * @ind: index of search.
+ * @buffer: Buffer array to handle printing.
  * @flags: Calculates active flags
  * @width: get width.
  * @precision: Precision specification
@@ -79,17 +63,16 @@ void print_buffer(char buffer[], int *buff_ind)
 int func_print(const char *fmt, int *ind, va_list list, char buffer[],
 			   int flags, int width, int precision, int size)
 {
-	int i, unknow_len = 0, printed_chars = -1;
+	int i, unknow_len = 0, num_printed = -1;
 	fmt_t fmt_types[] = {
-		{'c', _char}, {'s', _string}, {'%', _percent}, {'i', _int}, {'d', _int},
-		{'b', _binary}, {'u', _unsigned}, {'o', _octal}, {'x', _hexa}, {'X', hexa_upper},
-		{'p', _pointer}, {'S', _unprintable}, {'r', reverse_str}, {'R', _rot13}, {'\0', NULL}};
-
+		{'c', _char}, {'s', _string}, {'%', _percent},
+		{'i', _int}, {'d', _int}, {'b', _binary}, {'u', _unsigned},
+		{'o', _octal}, {'x', _hexa}, {'X', hexa_upper}, {'p', _pointer},
+		{'S', _unprintable}, {'r', reverse_str}, {'R', _rot13}, {'\0', NULL}};
 
 	for (i = 0; fmt_types[i].fmt != '\0'; i++)
 		if (fmt[*ind] == fmt_types[i].fmt)
 			return (fmt_types[i].fn(list, buffer, flags, width, precision, size));
-
 	if (fmt_types[i].fmt == '\0')
 	{
 		if (fmt[*ind] == '\0')
@@ -109,5 +92,5 @@ int func_print(const char *fmt, int *ind, va_list list, char buffer[],
 		unknow_len += write(1, &fmt[*ind], 1);
 		return (unknow_len);
 	}
-	return (printed_chars);
+	return (num_printed);
 }

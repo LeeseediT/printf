@@ -80,7 +80,7 @@ int write_int(int ind, char bff[], int flags, int width, int precision,
 int write_pointer(char buffer[], int ind, int length, int width,
 				  int flags, char padd, char extra_c, int padd_start);
 
-int write_unsgnd(int is_negative, int ind,
+int write_unsigned(int is_negative, int ind,
 				 char buffer[],
 				 int flags, int width, int precision, int size);
 
