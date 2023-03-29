@@ -1,15 +1,20 @@
 #include "main.h"
 
+
+
+
+
 int _char(va_list types, char buffer[],
-		  int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	char c = va_arg(types, int);
 
 	return (handle_write_char(c, buffer, flags, width, precision, size));
 }
 
+
 int _string(va_list types, char buffer[],
-			int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	int length = 0, i;
 	char *str = va_arg(types, char *);
@@ -53,8 +58,9 @@ int _string(va_list types, char buffer[],
 	return (write(1, str, length));
 }
 
+
 int _percent(va_list types, char buffer[],
-			 int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	(void)types;
 	(void)buffer;
@@ -65,20 +71,22 @@ int _percent(va_list types, char buffer[],
 	return (write(1, "%%", 1));
 }
 
+
+
 int _int(va_list types, char buffer[],
-		 int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
-	int i = BUFF_SIZE - 2;
+	int i = BUFER_SIZE - 2;
 	int is_negative = 0;
 	long int n = va_arg(types, long int);
 	unsigned long int num;
 
-	n = convert_size_number(n, size);
+	n = int_size(n, size);
 
 	if (n == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFER_SIZE - 1] = '\0';
 	num = (unsigned long int)n;
 
 	if (n < 0)
@@ -95,11 +103,13 @@ int _int(va_list types, char buffer[],
 
 	i++;
 
-	return (write_number(is_negative, i, buffer, flags, width, precision, size));
+	return (write_intber(is_negative, i, buffer, flags, width, precision, size));
 }
 
+
+
 int _binary(va_list types, char buffer[],
-			int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	unsigned int n, m, i, sum;
 	unsigned int a[32];
@@ -112,7 +122,7 @@ int _binary(va_list types, char buffer[],
 	(void)size;
 
 	n = va_arg(types, unsigned int);
-	m = 2147483648; /* (2 ^ 31) */
+	m = 2147483648;
 	a[0] = n / m;
 	for (i = 1; i < 32; i++)
 	{
@@ -133,20 +143,21 @@ int _binary(va_list types, char buffer[],
 	return (count);
 }
 
-#include "main.h"
+
+
 
 int _unsigned(va_list types, char buffer[],
-			  int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
-	int i = BUFF_SIZE - 2;
+	int i = BUFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 
-	num = convert_size_unsgnd(num, size);
+	num = unsigned_int_size(num, size);
 
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -159,22 +170,24 @@ int _unsigned(va_list types, char buffer[],
 	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
+
+
 int _octal(va_list types, char buffer[],
-		   int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 
-	int i = BUFF_SIZE - 2;
+	int i = BUFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
 	(void)width;
 
-	num = convert_size_unsgnd(num, size);
+	num = unsigned_int_size(num, size);
 
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -190,35 +203,41 @@ int _octal(va_list types, char buffer[],
 	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
+
+
 int _hexa(va_list types, char buffer[],
-		  int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	return (print_hexa(types, "0123456789abcdef", buffer,
-					   flags, 'x', width, precision, size));
+		flags, 'x', width, precision, size));
 }
+
+
 
 int hexa_upper(va_list types, char buffer[],
-			   int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	return (print_hexa(types, "0123456789ABCDEF", buffer,
-					   flags, 'X', width, precision, size));
+		flags, 'X', width, precision, size));
 }
 
+
+
 int print_hexa(va_list types, char map_to[], char buffer[],
-			   int flags, char flag_ch, int width, int precision, int size)
+	int flags, char flag_ch, int width, int precision, int size)
 {
-	int i = BUFF_SIZE - 2;
+	int i = BUFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
 	(void)width;
 
-	num = convert_size_unsgnd(num, size);
+	num = unsigned_int_size(num, size);
 
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -237,12 +256,17 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
+
+#include "main.h"
+
+
+
 int _pointer(va_list types, char buffer[],
-			 int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	char extra_c = 0, padd = ' ';
-	int ind = BUFF_SIZE - 2, length = 2, padd_start = 1; /* length=2, for '0x' */
-	unsigned long num_addrs;
+	int ind = BUFER_SIZE - 2, length = 2, padd_start = 1;
+    unsigned long num_addrs;
 	char map_to[] = "0123456789abcdef";
 	void *addrs = va_arg(types, void *);
 
@@ -252,7 +276,7 @@ int _pointer(va_list types, char buffer[],
 	if (addrs == NULL)
 		return (write(1, "(nil)", 5));
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFER_SIZE - 1] = '\0';
 	(void)precision;
 
 	num_addrs = (unsigned long)addrs;
@@ -273,13 +297,14 @@ int _pointer(va_list types, char buffer[],
 
 	ind++;
 
-	return (write(1, &buffer[i], BUFF_SIZE - i - 1));
 	return (write_pointer(buffer, ind, length,
-						  width, flags, padd, extra_c, padd_start));
+		width, flags, padd, extra_c, padd_start));
 }
 
-int print_non_printable(va_list types, char buffer[],
-						int flags, int width, int precision, int size)
+
+
+int _unprintable(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
 {
 	int i = 0, offset = 0;
 	char *str = va_arg(types, char *);
@@ -297,7 +322,7 @@ int print_non_printable(va_list types, char buffer[],
 		if (is_printable(str[i]))
 			buffer[i + offset] = str[i];
 		else
-			offset += append_hexa_code(str[i], buffer, i + offset);
+			offset += append_hexa(str[i], buffer, i + offset);
 
 		i++;
 	}
@@ -307,8 +332,9 @@ int print_non_printable(va_list types, char buffer[],
 	return (write(1, buffer, i + offset));
 }
 
-int _reverse(va_list types, char buffer[],
-			 int flags, int width, int precision, int size)
+
+int reverse_str(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
 {
 	char *str;
 	int i, count = 0;
@@ -339,8 +365,9 @@ int _reverse(va_list types, char buffer[],
 	return (count);
 }
 
+
 int _rot13(va_list types, char buffer[],
-		   int flags, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	char x;
 	char *str;
@@ -378,4 +405,62 @@ int _rot13(va_list types, char buffer[],
 		}
 	}
 	return (count);
+}
+
+int is_printable(char c)
+{
+	if (c >= 32 && c < 127)
+		return (1);
+
+	return (0);
+}
+
+
+int append_hexa(char ascii_code, char buffer[], int i)
+{
+	char map_to[] = "0123456789ABCDEF";
+
+	if (ascii_code < 0)
+		ascii_code *= -1;
+
+	buffer[i++] = '\\';
+	buffer[i++] = 'x';
+
+	buffer[i++] = map_to[ascii_code / 16];
+	buffer[i] = map_to[ascii_code % 16];
+
+	return (3);
+}
+
+
+
+int is_digit(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+
+	return (0);
+}
+
+
+
+long int int_size(long int num, int size)
+{
+	if (size == SIZE_LONG)
+		return (num);
+	else if (size == SIZE_SHORT)
+		return ((short)num);
+
+	return ((int)num);
+}
+
+
+long int unsigned_int_size(unsigned long int num, int size)
+{
+	if (size == SIZE_LONG)
+		return (num);
+	else if (size == SIZE_SHORT)
+		return ((unsigned short)num);
+
+	return ((unsigned int)num);
 }
