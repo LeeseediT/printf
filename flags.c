@@ -143,7 +143,7 @@ int _int(va_list types, char buffer[],
 
 	i++;
 
-	return (write_intber(is_negative, i, buffer, flags, width, precision, size));
+	return (write_integer(is_negative, i, buffer, flags, width, precision, size));
 }
 /**
  * _binary - Prints a value of its format

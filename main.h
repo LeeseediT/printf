@@ -73,7 +73,7 @@ int _rot13(va_list types, char buffer[],
 
 int handle_write_char(char c, char buffer[],
 					  int flags, int width, int precision, int size);
-int write_intber(int is_positive, int ind, char buffer[],
+int write_integer(int is_positive, int ind, char buffer[],
 				 int flags, int width, int precision, int size);
 int write_int(int ind, char bff[], int flags, int width, int precision,
 			  int length, char padd, char extra_c);

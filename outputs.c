@@ -2,10 +2,8 @@
 
 /**
  * handle_write_char - Prints a value of its format
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
- * @buffer: Buffer array to handle print.
+ * @c: character to be handles
+ * @buffer: array of texts in the buffer
  * @flags: Calculates active flags
  * @width: get width.
  * @precision: Precision specification
@@ -46,18 +44,17 @@ int handle_write_char(char c, char buffer[], int flags, int width,
 }
 
 /**
- * write_intber - Prints a value  based on its format
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
- * @buffer: Buffer array to handle print.
+ * write_integer - Prints a value  based on its format
+ * @is_negative: to check if an int is negative
+ * @ind: buffer index
+ * @buffer: array of texts in the buffer
  * @flags: Calculates active flags
  * @width: get width.
  * @precision: Precision specification
  * @size: Size specifier
  * Return: 1 or 2;
  */
-int write_intber(int is_negative, int ind, char buffer[],
+int write_integer(int is_negative, int ind, char buffer[],
 				 int flags, int width, int precision, int size)
 {
 	int length = BUFFER_SIZE - ind - 1;
@@ -91,19 +88,19 @@ int write_intber(int is_negative, int ind, char buffer[],
  */
 
 int write_int(int ind, char buffer[],
-			  int flags, int width, int prec,
+			  int flags, int width, int precision,
 			  int length, char padd, char extra_c)
 {
 	int i, padd_start = 1;
 
-	if (prec == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0' && width == 0)
+	if (precision == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0' && width == 0)
 		return (0);
-	if (prec == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
+	if (precision == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
 		buffer[ind] = padd = ' ';
 
-	if (prec > 0 && prec < length)
+	if (precision > 0 && prec < length)
 		padd = ' ';
-	while (prec > length)
+	while (precision > length)
 		buffer[--ind] = '0', length++;
 	if (extra_c != 0)
 		length++;
@@ -139,10 +136,7 @@ int write_int(int ind, char buffer[],
 
 /**
  * write_unsgnd - Prints a value of its format
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
- * @buffer: Buffer array to handle print.
+ * @buffer: array of texts in the buffer
  * @flags: Calculates active flags
  * @width: get width.
  * @precision: Precision specification
