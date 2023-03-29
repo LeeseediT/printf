@@ -8,7 +8,6 @@
  *			the format string being parsed.
  *@i: a pointer to an integer value representing the current
  *			position in the format string being parsed.
- *@list: a variable argument list containing the arguments to be formatted.
  *Return: returns calculated width
  */
 
