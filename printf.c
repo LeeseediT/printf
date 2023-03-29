@@ -10,7 +10,7 @@ int _printf(const char *format, ...)
 	int i = 0, printed = 0, printed_chars = 0;
 	int flags, width, precision, size, buff_ind = 0;
 	va_list list;
-	char buffer[BUFER_SIZE];
+	char buffer[BUFFER_SIZE];
 
 	if (format == NULL)
 		return (-1);
@@ -22,7 +22,7 @@ int _printf(const char *format, ...)
 		if (format[i] != '%')
 		{
 			buffer[buff_ind++] = format[i];
-			if (buff_ind == BUFER_SIZE)
+			if (buff_ind == BUFFER_SIZE)
 				print_buffer(buffer, &buff_ind);
 
 			printed_chars++;
@@ -65,12 +65,17 @@ void print_buffer(char buffer[], int *buff_ind)
 }
 
 /**
- * func_print - prints values depending on the specifier passed
- * 
- * 
- * 
+ * func_print - Prints a value based on the specifier passed
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
  */
-
 int func_print(const char *fmt, int *ind, va_list list, char buffer[],
 			   int flags, int width, int precision, int size)
 {

@@ -1,5 +1,17 @@
 #include "main.h"
 
+/**
+ * _char - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 
 
@@ -12,6 +24,18 @@ int _char(va_list types, char buffer[],
 	return (handle_write_char(c, buffer, flags, width, precision, size));
 }
 
+/**
+ * _string - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _string(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -58,6 +82,18 @@ int _string(va_list types, char buffer[],
 	return (write(1, str, length));
 }
 
+/**
+ * _percent - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _percent(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -72,11 +108,23 @@ int _percent(va_list types, char buffer[],
 }
 
 
+/**
+ * _int - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _int(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int i = BUFER_SIZE - 2;
+	int i = BUFFER_SIZE - 2;
 	int is_negative = 0;
 	long int n = va_arg(types, long int);
 	unsigned long int num;
@@ -86,7 +134,7 @@ int _int(va_list types, char buffer[],
 	if (n == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFER_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 	num = (unsigned long int)n;
 
 	if (n < 0)
@@ -105,6 +153,18 @@ int _int(va_list types, char buffer[],
 
 	return (write_intber(is_negative, i, buffer, flags, width, precision, size));
 }
+/**
+ * _binary - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 
 
@@ -149,7 +209,7 @@ int _binary(va_list types, char buffer[],
 int _unsigned(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int i = BUFER_SIZE - 2;
+	int i = BUFFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 
 	num = unsigned_int_size(num, size);
@@ -157,7 +217,7 @@ int _unsigned(va_list types, char buffer[],
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFER_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -176,7 +236,7 @@ int _octal(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 
-	int i = BUFER_SIZE - 2;
+	int i = BUFFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
@@ -187,7 +247,7 @@ int _octal(va_list types, char buffer[],
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFER_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -226,7 +286,7 @@ int hexa_upper(va_list types, char buffer[],
 int print_hexa(va_list types, char map_to[], char buffer[],
 	int flags, char flag_ch, int width, int precision, int size)
 {
-	int i = BUFER_SIZE - 2;
+	int i = BUFFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
@@ -237,7 +297,7 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFER_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -265,7 +325,7 @@ int _pointer(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	char extra_c = 0, padd = ' ';
-	int ind = BUFER_SIZE - 2, length = 2, padd_start = 1;
+	int ind = BUFFER_SIZE - 2, length = 2, padd_start = 1;
     unsigned long num_addrs;
 	char map_to[] = "0123456789abcdef";
 	void *addrs = va_arg(types, void *);
@@ -276,7 +336,7 @@ int _pointer(va_list types, char buffer[],
 	if (addrs == NULL)
 		return (write(1, "(nil)", 5));
 
-	buffer[BUFER_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 	(void)precision;
 
 	num_addrs = (unsigned long)addrs;

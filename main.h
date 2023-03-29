@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stddef.h>
-#define BUFER_SIZE 1024
+#define BUFFER_SIZE 1024
 
 #define MINUS_FLAG 1
 #define PLUS_FLAG 2

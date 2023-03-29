@@ -1,16 +1,16 @@
 #include "main.h"
 
-/************************* WRITE HANDLE *************************/
 /**
- * handle_write_char - prints string characters
- * @c: character types
- * @buffer: Buffer that handles the character printing
- * @flags: Calculates active flags.
+ * handle_write_char - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
  * @width: get width.
- * @precision: precision specifier
+ * @precision: Precision specification
  * @size: Size specifier
- *
- * Return: Number of chars printed.
+ * Return: 1 or 2;
  */
 int handle_write_char(char c, char buffer[], int flags, int width,
 					  int precision, int size)
@@ -30,27 +30,37 @@ int handle_write_char(char c, char buffer[], int flags, int width,
 
 	if (width > 1)
 	{
-		buffer[BUFER_SIZE - 1] = '\0';
+		buffer[BUFFER_SIZE - 1] = '\0';
 		for (i = 0; i < width - 1; i++)
-			buffer[BUFER_SIZE - i - 2] = padd;
+			buffer[BUFFER_SIZE - i - 2] = padd;
 
 		if (flags & MINUS_FLAG)
 			return (write(1, &buffer[0], 1) +
-					write(1, &buffer[BUFER_SIZE - i - 1], width - 1));
+					write(1, &buffer[BUFFER_SIZE - i - 1], width - 1));
 		else
-			return (write(1, &buffer[BUFER_SIZE - i - 1], width - 1) +
+			return (write(1, &buffer[BUFFER_SIZE - i - 1], width - 1) +
 					write(1, &buffer[0], 1));
 	}
 
 	return (write(1, &buffer[0], 1));
 }
 
-
-
+/**
+ * write_intber - Prints a value  based on its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 int write_intber(int is_negative, int ind, char buffer[],
 				 int flags, int width, int precision, int size)
 {
-	int length = BUFER_SIZE - ind - 1;
+	int length = BUFFER_SIZE - ind - 1;
 	char padd = ' ', extra_ch = 0;
 
 	(void)size;
@@ -67,6 +77,18 @@ int write_intber(int is_negative, int ind, char buffer[],
 	return (write_int(ind, buffer, flags, width, precision,
 					  length, padd, extra_ch));
 }
+/**
+ * write_int - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int write_int(int ind, char buffer[],
 			  int flags, int width, int prec,
@@ -74,10 +96,10 @@ int write_int(int ind, char buffer[],
 {
 	int i, padd_start = 1;
 
-	if (prec == 0 && ind == BUFER_SIZE - 2 && buffer[ind] == '0' && width == 0)
+	if (prec == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0' && width == 0)
 		return (0);
 
-	if (prec == 0 && ind == BUFER_SIZE - 2 && buffer[ind] == '0')
+	if (prec == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
 		buffer[ind] = padd = ' ';
 
 	if (prec > 0 && prec < length)
@@ -99,7 +121,7 @@ int write_int(int ind, char buffer[],
 			return (write(1, &buffer[ind], length) + write(1, &buffer[1], i - 1));
 		}
 		else if (!(flags & MINUS_FLAG) && padd == ' ')
-		
+
 		{
 			if (extra_c)
 				buffer[--ind] = extra_c;
@@ -119,19 +141,31 @@ int write_int(int ind, char buffer[],
 	return (write(1, &buffer[ind], length));
 }
 
+/**
+ * write_unsgnd - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int write_unsgnd(int is_negative, int ind,
 				 char buffer[],
 				 int flags, int width, int precision, int size)
 {
-	int length = BUFER_SIZE - ind - 1, i = 0;
+	int length = BUFFER_SIZE - ind - 1, i = 0;
 	char padd = ' ';
 
 	(void)is_negative;
 	(void)size;
 
-	if (precision == 0 && ind == BUFER_SIZE - 2 && buffer[ind] == '0')
-		return (0); 
+	if (precision == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
+		return (0);
 
 	if (precision > 0 && precision < length)
 		padd = ' ';
@@ -165,6 +199,18 @@ int write_unsgnd(int is_negative, int ind,
 	return (write(1, &buffer[ind], length));
 }
 
+/**
+ * write_pointer - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int write_pointer(char buffer[], int ind, int length,
 				  int width, int flags, char padd, char extra_c, int padd_start)
@@ -208,5 +254,5 @@ int write_pointer(char buffer[], int ind, int length,
 	buffer[--ind] = '0';
 	if (extra_c)
 		buffer[--ind] = extra_c;
-	return (write(1, &buffer[ind], BUFER_SIZE - ind - 1));
+	return (write(1, &buffer[ind], BUFFER_SIZE - ind - 1));
 }
