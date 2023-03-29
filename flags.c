@@ -204,7 +204,18 @@ int _binary(va_list types, char buffer[],
 }
 
 
-
+/**
+ * _unsigned - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _unsigned(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -230,7 +241,18 @@ int _unsigned(va_list types, char buffer[],
 	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
-
+/**
+ * _octal - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _octal(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -263,7 +285,18 @@ int _octal(va_list types, char buffer[],
 	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
-
+/**
+ * _hexa - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _hexa(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -272,7 +305,18 @@ int _hexa(va_list types, char buffer[],
 		flags, 'x', width, precision, size));
 }
 
-
+/**
+ * hexa_upper - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int hexa_upper(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -281,7 +325,18 @@ int hexa_upper(va_list types, char buffer[],
 		flags, 'X', width, precision, size));
 }
 
-
+/**
+ * print_hexa - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int print_hexa(va_list types, char map_to[], char buffer[],
 	int flags, char flag_ch, int width, int precision, int size)
@@ -319,7 +374,18 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 
 #include "main.h"
 
-
+/**
+ * _pointer - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _pointer(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -361,7 +427,18 @@ int _pointer(va_list types, char buffer[],
 		width, flags, padd, extra_c, padd_start));
 }
 
-
+/**
+ * _unprintable - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _unprintable(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -392,7 +469,18 @@ int _unprintable(va_list types, char buffer[],
 	return (write(1, buffer, i + offset));
 }
 
-
+/**
+ * reverse_str - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 int reverse_str(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
@@ -424,7 +512,18 @@ int reverse_str(va_list types, char buffer[],
 	}
 	return (count);
 }
-
+/**
+ * _rot13 - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int _rot13(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -466,6 +565,18 @@ int _rot13(va_list types, char buffer[],
 	}
 	return (count);
 }
+/**
+ * is_printable - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int is_printable(char c)
 {
@@ -475,7 +586,18 @@ int is_printable(char c)
 	return (0);
 }
 
-
+/**
+ * append_hexa - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 int append_hexa(char ascii_code, char buffer[], int i)
 {
 	char map_to[] = "0123456789ABCDEF";
@@ -492,7 +614,18 @@ int append_hexa(char ascii_code, char buffer[], int i)
 	return (3);
 }
 
-
+/**
+ * is_digit - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 int is_digit(char c)
 {
@@ -502,7 +635,18 @@ int is_digit(char c)
 	return (0);
 }
 
-
+/**
+ * int_size - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 
 long int int_size(long int num, int size)
 {
@@ -514,7 +658,18 @@ long int int_size(long int num, int size)
 	return ((int)num);
 }
 
-
+/**
+ * unsigned_int_size - Prints a value of its format
+ * @fmt: Formatted string in which to print the arguments.
+ * @list: List of arguments to be printed.
+ * @ind: ind.
+ * @buffer: Buffer array to handle print.
+ * @flags: Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: 1 or 2;
+ */
 long int unsigned_int_size(unsigned long int num, int size)
 {
 	if (size == SIZE_LONG)
