@@ -3,8 +3,7 @@
 /**
  * _pointer - Prints a value of its format
  * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
+ * @types: List of arguments to be printed..
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.
@@ -56,8 +55,7 @@ int _pointer(va_list types, char buffer[],
 /**
  * _unprintable - Prints a value of its format
  * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
+ * @types: List of arguments to be printed..
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.
@@ -98,8 +96,7 @@ int _unprintable(va_list types, char buffer[],
 /**
  * reverse_str - Prints a value of its format
  * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
+ * @types: List of arguments to be printed..
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.
@@ -141,8 +138,7 @@ int reverse_str(va_list types, char buffer[],
 /**
  * _rot13 - Prints a value of its format
  * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
+ * @types: List of arguments to be printed..
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.

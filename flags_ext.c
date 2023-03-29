@@ -27,11 +27,11 @@ int append_hexa(char ascii_code, char buffer[], int ind)
 	if (ascii_code < 0)
 		ascii_code *= -1;
 
-	buffer[i++] = '\\';
-	buffer[i++] = 'x';
+	buffer[ind++] = '\\';
+	buffer[ind++] = 'x';
 
-	buffer[i++] = map_to[ascii_code / 16];
-	buffer[i] = map_to[ascii_code % 16];
+	buffer[ind++] = map_to[ascii_code / 16];
+	buffer[ind] = map_to[ascii_code % 16];
 
 	return (3);
 }
@@ -53,7 +53,7 @@ int is_digit(char c)
 /**
  * int_size - adjusts the size of an integer
  * @num: the int to be adjusted
- * @list: List of arguments to be printed.
+ * @size: size int to be checked.
  * Return: 1 or 2;
  */
 
@@ -69,14 +69,8 @@ long int int_size(long int num, int size)
 
 /**
  * unsigned_int_size - Prints a value of its format
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
- * @buffer: Buffer array to handle print.
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
+ * @num: the int to be adjusted
+ * @size: size int to be checked.
  * Return: 1 or 2;
  */
 long int unsigned_int_size(unsigned long int num, int size)
