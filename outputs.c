@@ -98,7 +98,7 @@ int write_int(int ind, char buffer[],
 	if (precision == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
 		buffer[ind] = padd = ' ';
 
-	if (precision > 0 && prec < length)
+	if (precision > 0 && precision < length)
 		padd = ' ';
 	while (precision > length)
 		buffer[--ind] = '0', length++;
