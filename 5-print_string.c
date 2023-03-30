@@ -3,7 +3,10 @@
 
 
 /**
- *_unprintable - Prints a value of its format
+ *_unprintable - extracts a string from the argument
+ *		list and checks each character in the string
+ *		to see if it is a printable character using
+ *		the is_printable function.
  *@types: List of arguments to be printed..
  *@buffer: represents a buffer where the formatted
  *			output will be stored.
@@ -49,10 +52,12 @@ int _unprintable(va_list types, char buffer[],
 
 
 /**
- *is_printable - checks if a value is printable
+ *is_printable - checks if a character is printable
  *@c:  represents a single character that is being
  *		tested for printability.
- *Return: 1 if true and 0 otherwise;
+ *Return: returns 1 if the character is a printable
+ *		ASCII character (i.e., its ASCII code is in
+ *		the range 32-126), and 0 otherwise.
  */
 
 int is_printable(char c)
@@ -64,7 +69,9 @@ int is_printable(char c)
 }
 
 /**
- *append_hexa - Prints a value of its format
+ *append_hexa - returns the number of characters appended to the buffer
+ *		(always 3, since a hexadecimal representation is two characters
+ *		preceded by '\x').
  *@ascii_code: Formatted string in which to print the arguments.
  *@buffer: represents a buffer where the formatted output will be stored.
  *@ind: represents the current index into the output
@@ -77,7 +84,7 @@ int append_hexa(char ascii_code, char buffer[], int ind)
 	char map_to[] = "0123456789ABCDEF";
 
 	if (ascii_code < 0)
-		ascii_code *= -1;
+		/* ascii_code *= -1; */
 
 	buffer[ind++] = '\\';
 	buffer[ind++] = 'x';

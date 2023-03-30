@@ -1,6 +1,7 @@
 #include "main.h"
 /**
- *_size - gets special  values
+ *_size - a helper function used to parse format
+ *			strings and determine the size of a format specifier.
  *@format: a pointer to a character array
  *			representing the format string being parsed.
  *@i:  a pointer to an integer value representing the
@@ -25,13 +26,16 @@ int _size(const char *format, int *i)
 	return (size);
 }
 /**
- *_width - gets special  values
+ *_width - parses the format string to find the minimum
+ *		field width for the output character and returns that value
  *@format: a pointer to a character array representing
  *			the format string being parsed.
  *@i: a pointer to an integer value representing the current
  *			position in the format string being parsed.
  *@list: a variable argument list containing the arguments to be formatted.
- *Return: returns calculated width
+ *Return: returns the width and updates the current index pointer to point to
+ *		the last character processed. If there is no width specified, the
+ *		function returns 0.
  */
 int _width(const char *format, int *i, va_list list)
 {
@@ -61,7 +65,8 @@ int _width(const char *format, int *i, va_list list)
 }
 
 /**
- *int_size - adjusts the size of an integer
+ *int_size - to cast a number to a specific size based
+ *		on the size argument passed to it.
  *@num: an integer value that is being
  *			converted to a different data type based on
  *			the size parameter.
@@ -81,7 +86,8 @@ long int int_size(long int num, int size)
 }
 
 /**
- *unsigned_int_size - Prints a value of its format
+ *unsigned_int_size - convert an unsigned integer to a
+ *		different type of unsigned integer based on the specified size.
  *@num: an unsigned integer value that is being
  *			converted to a different data type based on
  *			the size parameter.
@@ -101,14 +107,16 @@ long int unsigned_int_size(unsigned long int num, int size)
 }
 
 /**
- *write_unsigned - get an un signed int passed using the specifier
+ *write_unsigned - writes an unsigned integer to a buffer using the
+ *		specified format. It takes in the following parameters:
  *@buffer: represents a buffer where the formatted output will be stored.
  *@flags: represents any optional formatting flags
  *			that are used in the printf-style function call.
  *@width: represents the minimum field width for the output character..
  *@is_negative: checks if the in it a negative int
- *@ind: buffer index of value
- *@size: size of the integer
+ *@ind: an integer value that represents the buffer index where
+ *		the integer should be written.
+ *@size: an integer value representing the size of the integer
  *@precision: used to specify the number of digits after the flag
  *				characters for non-custom conversion specifier values.
  *Return: returns an integer value representing

@@ -1,7 +1,8 @@
 #include "main.h"
 
 /**
- *_char - Prints a value of its format
+ *_char - is used to handle the conversion specifier %c in the
+ *		printf function.
  *@buffer: represents a buffer where the formatted output will be stored.
  *@types: argument, which is used to access the variable argument list.
  *@flags: represents any optional formatting
@@ -24,7 +25,8 @@ int _char(va_list types, char buffer[],
 }
 
 /**
- *_string - Prints a value of its format
+ *_string - is responsible for handling the formatting and printing of
+ *		strings using the %s specifier.
  *@buffer: represents a buffer where the formatted output will be stored.
  *@types: argument, which is used to access the variable argument list.
  *@flags: represents any optional formatting
@@ -84,7 +86,8 @@ int _string(va_list types, char buffer[],
 }
 
 /**
- *_percent - Prints a value of its format
+ *_percent - is a printf format specifier function that handles
+ *		the % format specifier
  *@buffer: represents a buffer where the formatted output will be stored.
  *@types: argument, which is used to access the variable argument list.
  *@flags: represents any optional formatting

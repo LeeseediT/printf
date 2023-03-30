@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- *_printf -emulates the printf() built in function
+ *_printf -emulates the printf() built in function in C
  *@format: passed identifier
  *
  *@...: variadic argument

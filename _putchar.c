@@ -1,6 +1,8 @@
 #include "main.h"
 /**
- *_putchar - prints a single character to standard output
+ *_putchar - takes a single character as
+ *		input and writes it to standard output using
+ *		the write system call.
  *@c: character to be printed
  *Return: always 1
  */

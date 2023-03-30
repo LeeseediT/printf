@@ -1,7 +1,10 @@
 #include "main.h"
 
 /**
- *_rot13 - Prints a value of its format
+ *_rot13 - is an implementation of the ROT13 cipher,
+ *		which is a simple letter substitution cipher
+ *		that replaces each letter in the input string
+ *		with the letter that is 13 places down the alphabet from it.
  *@types: argument, which is used to access the
  *			variable argument list.
  *@buffer: represents a buffer where the formatted

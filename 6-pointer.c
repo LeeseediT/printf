@@ -1,7 +1,9 @@
 #include "main.h"
 
 /**
- *_pointer - Prints a value of its format
+ *_pointer - is a implementation of the conversion specifier %p which
+ *		is used to print the memory address of a pointer in hexadecimal
+ *		format.
  *@types: argument, which is used to access the variable argument list.
  *@buffer: represents a buffer where the formatted output will be stored.
  *@flags: represents any optional formatting flags that are used

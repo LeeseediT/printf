@@ -3,7 +3,8 @@
 
 
 /**
- *_specifiers - gets special  values
+ *_specifiers - is responsible for parsing the flags in
+ *		the format string.
  *@format: a pointer to a character array representing
  *			the format string being parsed.
  *@i: a pointer to an integer value representing the current
@@ -38,7 +39,8 @@ int _specifiers(const char *format, int *i)
 
 
 /**
- *handle_write_char - Prints a value of its format
+ *handle_write_char - This function handles the printing
+ *		of a single character.
  *@c: character to be handles
  *@buffer: represents a buffer where the formatted
  *		output will be stored.
@@ -84,7 +86,7 @@ int handle_write_char(char c, char buffer[], int flags, int width,
 
 
 /**
- *write_int - Prints a value of its format
+ *write_int - is used to write integer values to the output buffer.
  *@buffer: represents a buffer where the formatted output will be stored.
  *@ind: represents the current index into the output
  *			buffer where the next character should be written.

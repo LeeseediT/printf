@@ -2,7 +2,9 @@
 
 
 /**
- *reverse_str - Prints a value of its format
+ *reverse_str - takes in a va_list object which contains
+ *		a single argument of type char*, and then prints
+ *		the characters of the string in reverse order.
  *@types: argument, which is used to access the
  *			variable argument list.
  *@buffer: represents a buffer where the formatted

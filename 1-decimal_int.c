@@ -1,9 +1,8 @@
 #include "main.h"
 
-
-
 /**
- *write_pointer - Prints a value of its format
+ *write_pointer - is used to write a hexadecimal pointer address to
+ *		a buffer with a given width and flags.
  *@ind: represents the current index into the output buffer
  *			where the next character should be written.
  *@buffer: represents a buffer where the formatted output will be stored.
@@ -66,10 +65,9 @@ int write_pointer(char buffer[], int ind, int length,
 	return (write(1, &buffer[ind], BUFFER_SIZE - ind - 1));
 }
 
-
-
 /**
- *_int - Prints a value of its format
+ *_int - is responsible for handling the conversion specifier "d" or "i",
+ *		which formats and prints an integer.
  *@buffer: represents a buffer where the formatted output will be stored.
  *@types: variadic list
  *@flags: represents any optional formatting flags
@@ -118,7 +116,8 @@ int _int(va_list types, char buffer[],
 
 
 /**
- *write_integer - Prints a value  based on its format
+ *write_integer - is responsible for writing an integer to a buffer and
+ *		applying any necessary padding and precision.
  *@is_negative: to check if an int is negative
  *@ind: buffer index
  *@buffer: represents a buffer where the formatted output

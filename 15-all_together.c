@@ -17,7 +17,9 @@ int is_digit(char c)
 }
 
 /**
- *_precision - gets special  values
+ *_precision - is used to specify the number
+ *		of digits after the flag characters
+ *		for non-custom conversion specifier values.
  *@format: gets the specifier passed
  *@i: List of arguments to be printed.
  *@list: variadic list

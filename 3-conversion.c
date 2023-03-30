@@ -1,10 +1,9 @@
 #include "main.h"
 
-
-
-
 /**
- *print_hexa - Prints a value of its format
+ *print_hexa - takes a variable argument list and converts an unsigned
+ *		long integer to hexadecimal representation using the provided
+ *		map_to character array.
  *@types: argument, which is used to access the variable argument list.
  *@buffer: represents a buffer where the formatted output will be stored.
  *@flags: represents any optional formatting flags
@@ -53,7 +52,8 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 }
 
 /**
- *_octal - Prints a value of its format
+ *_octal - retrieves the argument from the va_list and then
+ *		converts it to an octal number.
  *@types: argument, which is used to access the variable argument list.
  *@buffer: represents a buffer where the formatted output will be stored.
  *@flags: represents any optional formatting flags that are
@@ -100,7 +100,9 @@ int _octal(va_list types, char buffer[],
 
 
 /**
- *_unsigned - Prints a value of its format
+ *_unsigned - is used to format and print an unsigned
+ *		integer value in the provided buffer, with optional
+ *		formatting flags such as width, precision, and size.
  *@types: argument, which is used to access the
  *			variable argument list.
  *@buffer: represents a buffer where the formatted
@@ -140,9 +142,10 @@ int _unsigned(va_list types, char buffer[],
 }
 
 
-
 /**
- *_hexa - Prints a value of its format
+ *_hexa - similar to the print_hexa() function, except
+ *		it uses the lowercase letters a-f instead of the
+ *		uppercase letters A-F.
  *@types: argument, which is used to access the
  *			variable argument list.
  *@buffer: represents a buffer where the formatted
@@ -166,9 +169,10 @@ int _hexa(va_list types, char buffer[],
 				flags, 'x', width, precision, size));
 }
 
-
 /**
- *hexa_upper - Prints a value of its format
+ *hexa_upper - is very similar to the _hexa function, but
+ *		it uses uppercase letters for hexadecimal digits
+ *		instead of lowercase.
  *@types: argument, which is used to access the variable
  *			argument list.
  *@buffer: represents a buffer where the formatted output

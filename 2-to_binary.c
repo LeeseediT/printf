@@ -1,7 +1,8 @@
 #include "main.h"
 
 /**
- *_binary - Prints a value of its format
+ *_binary - is a conversion function that converts an unsigned
+ *		integer to a binary representation and prints it out.
  *@buffer: represents a buffer where the
  *			formatted output will be stored.
  *@types: argument, which is used to access
@@ -16,8 +17,6 @@
  *Return: returns an integer value representing the number of characters
  *			written to the output buffer.
  */
-
-
 
 int _binary(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
