@@ -112,3 +112,51 @@ int _percent(va_list types, char buffer[],
 	(void)size;
 	return (write(1, "%%", 1));
 }
+
+
+
+/**
+ *handle_write_char - This function handles the printing
+ *		of a single character.
+ *@c: character to be handles
+ *@buffer: represents a buffer where the formatted
+ *		output will be stored.
+ *@flags: represents any optional formatting flags that
+ *		are used in the printf-style function call.
+ *@width: represents the minimum field width for the output character..
+ *@precision: used to specify the number of digits after the
+ *		flag characters for non-custom conversion specifier values.
+ *@size: integer size
+ *Return: returns an integer value representing the number of
+ *		characters written to the output buffer.
+ */
+int handle_write_char(char c, char buffer[], int flags, int width,
+					  int precision, int size)
+{
+	int i = 0;
+	char padd = ' ';
+
+	(void)precision;
+	(void)size;
+
+	if (flags & ZERO_FLAG)
+		padd = '0';
+
+	buffer[i++] = c;
+	buffer[i] = '\0';
+
+	if (width > 1)
+	{
+		buffer[BUFFER_SIZE - 1] = '\0';
+		for (i = 0; i < width - 1; i++)
+			buffer[BUFFER_SIZE - i - 2] = padd;
+
+		if (flags & MINUS_FLAG)
+			return (write(1, &buffer[0], 1) +
+					write(1, &buffer[BUFFER_SIZE - i - 1], width - 1));
+		else
+			return (write(1, &buffer[BUFFER_SIZE - i - 1], width - 1) +
+					write(1, &buffer[0], 1));
+	}
+	return (write(1, &buffer[0], 1));
+}

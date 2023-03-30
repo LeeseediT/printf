@@ -1,7 +1,5 @@
 #include "main.h"
 
-
-
 /**
  *_unprintable - extracts a string from the argument
  *		list and checks each character in the string

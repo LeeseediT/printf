@@ -1,7 +1,5 @@
 #include "main.h"
 
-
-
 /**
  *_specifiers - is responsible for parsing the flags in
  *		the format string.
@@ -37,116 +35,45 @@ int _specifiers(const char *format, int *i)
 }
 
 
-
 /**
- *handle_write_char - This function handles the printing
- *		of a single character.
- *@c: character to be handles
- *@buffer: represents a buffer where the formatted
- *		output will be stored.
- *@flags: represents any optional formatting flags that
- *		are used in the printf-style function call.
- *@width: represents the minimum field width for the output character..
- *@precision: used to specify the number of digits after the
- *		flag characters for non-custom conversion specifier values.
- *@size: integer size
- *Return: returns an integer value representing the number of
- *		characters written to the output buffer.
+ *_precision - is used to specify the number
+ *		of digits after the flag characters
+ *		for non-custom conversion specifier values.
+ *@format: gets the specifier passed
+ *@i: List of arguments to be printed.
+ *@list: variadic list
+ *Return: returns an integer value representing the number
+ *			of characters written to the output buffer.
  */
-int handle_write_char(char c, char buffer[], int flags, int width,
-					  int precision, int size)
+
+int _precision(const char *format, int *i, va_list list)
 {
-	int i = 0;
-	char padd = ' ';
+	int curr_i = *i + 1;
+	int precision = -1;
 
-	(void)precision;
-	(void)size;
+	if (format[curr_i] != '.')
+		return (precision);
 
-	if (flags & ZERO_FLAG)
-		padd = '0';
+	precision = 0;
 
-	buffer[i++] = c;
-	buffer[i] = '\0';
-
-	if (width > 1)
+	for (curr_i += 1; format[curr_i] != '\0'; curr_i++)
 	{
-		buffer[BUFFER_SIZE - 1] = '\0';
-		for (i = 0; i < width - 1; i++)
-			buffer[BUFFER_SIZE - i - 2] = padd;
-
-		if (flags & MINUS_FLAG)
-			return (write(1, &buffer[0], 1) +
-					write(1, &buffer[BUFFER_SIZE - i - 1], width - 1));
+		if (is_digit(format[curr_i]))
+		{
+			precision *= 10;
+			precision += format[curr_i] - '0';
+		}
+		else if (format[curr_i] == '*')
+		{
+			curr_i++;
+			precision = va_arg(list, int);
+			break;
+		}
 		else
-			return (write(1, &buffer[BUFFER_SIZE - i - 1], width - 1) +
-					write(1, &buffer[0], 1));
+			break;
 	}
-	return (write(1, &buffer[0], 1));
-}
 
+	*i = curr_i - 1;
 
-/**
- *write_int - is used to write integer values to the output buffer.
- *@buffer: represents a buffer where the formatted output will be stored.
- *@ind: represents the current index into the output
- *			buffer where the next character should be written.
- *@flags: represents any optional formatting flags that are used
- *			in the printf-style function call.
- *@width: represents the minimum field width for the output character..
- *@precision: used to specify the number of digits after the flag
- *			characters for non-custom conversion specifier values.
- *@length:  represents the maximum size of the buffer that is
- *			passed as an argument.
- *@padd: is used to specify the padding character to use when filling
- *			the output string to the specified width.
- *@extra_c: Extra char
- *Return: returns an integer value representing the number of
- *			characters written to the output buffer.
- */
-
-int write_int(int ind, char buffer[], int flags, int width, int precision,
-			  int length, char padd, char extra_c)
-{
-	int i, padd_start = 1;
-
-	if (precision == 0 && ind == BUFFER_SIZE - 2
-		&& buffer[ind] == '0' && width == 0)
-		return (0);
-	if (precision == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
-		buffer[ind] = padd = ' ';
-
-	if (precision > 0 && precision < length)
-		padd = ' ';
-	while (precision > length)
-		buffer[--ind] = '0', length++;
-	if (extra_c != 0)
-		length++;
-	if (width > length)
-	{
-		for (i = 1; i < width - length + 1; i++)
-			buffer[i] = padd;
-		buffer[i] = '\0';
-		if (flags & MINUS_FLAG && padd == ' ')
-		{
-			if (extra_c)
-				buffer[--ind] = extra_c;
-			return (write(1, &buffer[ind], length) + write(1, &buffer[1], i - 1));
-		}
-		else if (!(flags & MINUS_FLAG) && padd == ' ')
-		{
-			if (extra_c)
-				buffer[--ind] = extra_c;
-			return (write(1, &buffer[1], i - 1) + write(1, &buffer[ind], length));
-		}
-		else if (!(flags & MINUS_FLAG) && padd == '0')
-		{
-			if (extra_c)
-				buffer[--padd_start] = extra_c;
-			return (write(1, &buffer[padd_start], i - padd_start) +
-				write(1, &buffer[ind], length - (1 - padd_start)));
-		}
-	}
-	if (extra_c)
-		buffer[--ind] = extra_c;
-	return (write(1, &buffer[ind], length));
+	return (precision);
 }
