@@ -6,7 +6,6 @@
  *Return: returns an integer value representing the
  *			number of characters written to the output buffer.
  */
-
 int is_digit(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -30,7 +29,6 @@ int is_digit(char c)
  *Return: returns an integer value representing
  *				the number of characters written to the output buffer.
  */
-
 int _int(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
@@ -40,7 +38,6 @@ int _int(va_list types, char buffer[],
 	unsigned long int num;
 
 	n = int_size(n, size);
-
 	if (n == 0)
 		buffer[i--] = '0';
 
@@ -63,8 +60,6 @@ int _int(va_list types, char buffer[],
 
 	return (write_integer(is_negative, i, buffer, flags, width, precision, size));
 }
-
-
 
 /**
  *write_integer - is responsible for writing an integer to a buffer and
@@ -104,8 +99,6 @@ int write_integer(int is_negative, int ind, char buffer[],
 					  length, padd, extra_ch));
 }
 
-
-
 /**
  *write_int - is used to write integer values to the output buffer.
  *@buffer: represents a buffer where the formatted output will be stored.
@@ -124,7 +117,6 @@ int write_integer(int is_negative, int ind, char buffer[],
  *Return: returns an integer value representing the number of
  *			characters written to the output buffer.
  */
-
 int write_int(int ind, char buffer[], int flags, int width, int precision,
 			  int length, char padd, char extra_c)
 {
@@ -135,13 +127,12 @@ int write_int(int ind, char buffer[], int flags, int width, int precision,
 		return (0);
 	if (precision == 0 && ind == BUFFER_SIZE - 2 && buffer[ind] == '0')
 		buffer[ind] = padd = ' ';
-
 	if (precision > 0 && precision < length)
 		padd = ' ';
 	while (precision > length)
 		buffer[--ind] = '0', length++;
 	if (extra_c != 0)
-		length++;
+	length++;
 	if (width > length)
 	{
 		for (i = 1; i < width - length + 1; i++)
